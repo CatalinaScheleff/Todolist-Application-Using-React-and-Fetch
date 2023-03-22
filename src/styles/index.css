@@ -10,3 +10,17 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+.div1 {
+    justify-content: center;
+    display: flex;
+}
+
+ul {
+    width: 400px;
+    margin: 30px;
+}
+
+.tareaLi{
+    display: flex;
+    justify-content: space-between;
+}
