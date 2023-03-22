@@ -50,12 +50,10 @@ const Home = () => {
 							</li>
 						}
 					})}
-
-
-
 				</ul>
+				
 			</div>
-
+			<div className="div1"><div className="cantidad">{tareas.length} tareas</div></div>
 		</div>
 	);
 };

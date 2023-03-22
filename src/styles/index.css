@@ -24,3 +24,9 @@ ul {
     display: flex;
     justify-content: space-between;
 }
+
+.cantidad {
+    width:400px;
+    justify-content:left ;
+    font-size: small;
+}
