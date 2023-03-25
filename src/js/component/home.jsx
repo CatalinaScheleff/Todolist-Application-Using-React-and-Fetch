@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 //include images into your bundle
 import rigoImage from "../../img/rigo-baby.jpg";
@@ -9,12 +9,50 @@ const Home = () => {
 	const [inputValue, setInputValue] = useState("")
 	const [tareas, setTareas] = useState([])
 
+	//Fetch api 
+	const url = 'http://assets.breatheco.de/apis/fake/todos/user/catalina'
+
+	//GET
+	useEffect(() => {
+		fetch(url)
+			.then(response => response.json())
+			.then(data => setTareas(data))
+			.catch(error => console.log(error), "error")
+
+	}, [])
+
+	
+
+	function actualizar (){
+		//PUT
+	var myHeaders = new Headers();
+	myHeaders.append("Content-Type", "application/json");
+
+	var raw = JSON.stringify(
+		tareas 
+		);
+
+	var requestOptions = {
+		method: 'PUT',
+		headers: myHeaders,
+		body: raw,
+		redirect: 'follow'
+	};
+		fetch(url, requestOptions)
+			.then(response => response.json())
+			.then(data => console.log(data))
+			.catch(error => console.log('error', error));
+}
+useEffect(()=>{actualizar()},[tareas])
+	//.
+
 	function agregarTarea() {
 		if (inputValue !== "") {
-			setTareas([...tareas, inputValue]);
+			setTareas([...tareas, {label: inputValue, done: false}]);
 		}
 		console.log(tareas)
 		setInputValue("")
+		
 	}
 
 	function eliminarTarea(index) {
@@ -39,10 +77,10 @@ const Home = () => {
 							value={inputValue}
 							onKeyPress={(e) => e.key === "Enter" ? agregarTarea() : null} />
 					</li>
-					{tareas.map((task, index) => {
-						if ({ task } != '') {
-							return <li className="list-group-item tareaLi">
-								<div>{task}</div>
+					{tareas.length > 0 && tareas.map((task, index) => {
+						if ( task.label  !== '') {
+							return <li key = {index} className="list-group-item tareaLi">
+								<div>{task?.label}</div>
 								<div>
 									<button className="btn btn-light btn-sm"
 										onClick={() => { eliminarTarea(index) }}>X</button>
@@ -51,7 +89,7 @@ const Home = () => {
 						}
 					})}
 				</ul>
-				
+
 			</div>
 			<div className="div1"><div className="cantidad">{tareas.length} tareas</div></div>
 		</div>
@@ -59,3 +97,4 @@ const Home = () => {
 };
 
 export default Home;
+
