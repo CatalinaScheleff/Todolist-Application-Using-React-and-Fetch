@@ -10,7 +10,7 @@ const Home = () => {
 	const [tareas, setTareas] = useState([])
 
 	//Fetch api 
-	const url = 'http://assets.breatheco.de/apis/fake/todos/user/catalina'
+	const url = 'https://assets.breatheco.de/apis/fake/todos/user/catalina'
 
 	//GET
 	useEffect(() => {
